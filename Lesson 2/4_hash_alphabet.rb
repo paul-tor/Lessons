@@ -1,4 +1,4 @@
-hash={}
+hash = {}
 arr2 = ['А', 'Е', 'И', 'О', 'У', 'Ы', 'Э', 'Ю', 'Я']
 arr1 = ('А'..'Я').to_a
 arr1.each_with_index do |letter, index|
