@@ -43,10 +43,10 @@ end
 
 class Train
 
-  attr_reader :carr_count,:type, :tr_numb, :speed
+  attr_reader :carr_count,:type, :number, :speed
    
-  def initialize(tr_numb, type, carr_count) 
-    @tr_numb = tr_numb
+  def initialize(number, type, carr_count) 
+    @number = number
     @type = type
     @carr_count = carr_count
     @speed = 0
@@ -65,10 +65,7 @@ class Train
   end
   
   def carr_break        
-    if self.speed == 0 && @carr_count != 0
-      @carr_count -= 1
-    else  @carr_count
-    end
+    @carr_count -= 1 if self.speed == 0 && @carr_count != 0
   end
 
   def take_route(route)
@@ -82,27 +79,21 @@ class Train
   end
 
   def go_forward 
-    if self.current_station != @route.stations.last  
-      self.current_station.send_train(self)
-      @station_index += 1
-      self.current_station.take_train(self)
-    end
+    return unless self.next_station  
+    self.current_station.send_train(self)
+    @station_index += 1
+    self.current_station.take_train(self)
   end
 
   def go_back
-    if self.current_station != @route.stations.first
-      self.current_station.send_train(self)
-      @station_index -= 1
-      self.current_station.take_train(self)
-    end
+    return unless self.current_station != @route.stations.first
+    self.current_station.send_train(self)
+    @station_index -= 1
+    self.current_station.take_train(self)
   end
 
   def next_station
-    if (@station_index + 1) < @route.stations.size
-      @route.stations[@station_index + 1]
-    else 
-      @route.stations.last
-    end
+    @route.stations[@station_index + 1] if (@station_index + 1) < @route.stations.size
   end 
 
   def prev_station
