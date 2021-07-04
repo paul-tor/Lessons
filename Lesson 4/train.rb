@@ -1,11 +1,12 @@
 class Train
 
-  attr_reader :number
+  attr_reader :number, :type
     
-  def initialize(number) 
+  def initialize(number,type) 
     @number = number
     @carriages = []
     @speed = 0
+    @type = type
   end
 
   def carr_break #public: По заданию, пользователь может отцеплять вагоны
